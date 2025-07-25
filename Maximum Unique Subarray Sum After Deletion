@@ -1,0 +1,29 @@
+#include <unordered_set>
+class Solution {
+public:
+    int maxSum(vector<int>& nums) {
+        int negativeElement = 0;
+        for(int num : nums){
+            if(num < 0) negativeElement++;
+            else negativeElement--;
+        }
+
+        if(negativeElement == nums.size()){
+            int maxVal = INT_MIN;
+            for(int num : nums){
+                maxVal = max(maxVal, num);
+            }
+            return maxVal;
+        } else {
+            unordered_set<int> seen;
+            long long sum = 0;
+            for(int num : nums){
+                if(num > 0 && seen.find(num) == seen.end()){
+                    seen.insert(num);
+                    sum += num;
+                }
+            }
+            return (int)sum;
+        }
+    }
+};

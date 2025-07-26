@@ -17,3 +17,28 @@ public:
         
     }
 };
+
+
+
+
+
+
+Here another logic but the time compexity is 0(n*2);
+
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& numbers, int target) {
+        vector<int> temp_array;
+        for(int i = 0; i<numbers.size()-1; i++){
+            for(int j = i+1; j<numbers.size(); j++){
+                if(numbers[i] + numbers[j] == target){
+                    temp_array.push_back(i+1);
+                    temp_array.push_back(j+1);
+                    return temp_array;
+                }
+            }
+        }
+    return {};
+        
+    }
+};

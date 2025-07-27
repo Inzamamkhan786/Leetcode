@@ -1,0 +1,28 @@
+class Solution {
+public:
+    int countHillValley(vector<int>& nums) {
+        int count = 0;
+        vector<int> output;
+
+         output.push_back(nums[0]);
+
+        for(int i = 1; i<nums.size(); i++){
+            if(nums[i] != nums[i-1]){
+                output.push_back(nums[i]);
+            }
+        }
+
+        if (output.size() < 3) return 0;
+
+        for(int i = 1; i < output.size()-1; i++){
+            if(output[i] > output[i-1] && output[i] > output[i+1]){
+                count++;
+            }else if(output[i] < output[i-1] && output[i] < output[i+1]){
+                count++;
+            }else{
+                continue;
+            }
+        }
+        return count;
+    }
+};

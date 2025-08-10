@@ -1,0 +1,65 @@
+class Solution {
+public:
+    vector<int> dailyTemperatures(vector<int>& temperatures) {
+        vector<int>result;
+    int count;
+        for(int i = 0; i < temperatures.size(); i++){
+            count = 0;
+            if(i == temperatures.size()-1){
+                    result.push_back(0);
+                    break;
+                }
+            for(int j = i + 1; j < temperatures.size(); ++j){
+
+                 if(temperatures[j] > temperatures[i]){
+                           count = j - i;
+                           result.push_back(count);
+                           break; 
+                }else if(temperatures[j] <= temperatures[i]){
+                    if(j == temperatures.size()-1 && temperatures[j] <= temperatures[i]){
+                    result.push_back(0);
+                    break;
+                    }else{
+                    continue;
+                    }
+                }
+            }
+            
+        }
+
+        return result;
+    }
+};
+
+
+O(N^2)  Time Complexity
+
+
+
+
+
+
+class Solution {
+public:
+    vector<int> dailyTemperatures(vector<int>& temperatures) {
+        vector<int>output(temperatures.size(),0);
+        stack<int>st;
+
+
+        for(int i = 0; i < temperatures.size(); i++){
+            while(!st.empty() && temperatures[i] > temperatures[st.top()]){
+                output[st.top()] = i - st.top();
+                st.pop();
+            }
+            st.push(i);
+        }
+
+        return output;
+     
+    }
+};
+
+
+
+
+O(N)  Time Complexity

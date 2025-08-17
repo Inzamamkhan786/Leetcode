@@ -1,0 +1,152 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    
+    ListNode*reverse(ListNode*head){
+        if(head == NULL || head->next == NULL){
+            return head;
+        }
+
+        ListNode*prev = NULL;
+        ListNode*curr = head;
+        ListNode*upcome = curr->next;
+
+        while(curr->next != NULL){
+            curr->next = prev;
+            prev = curr;
+            curr = upcome;
+            upcome = upcome->next;
+        }
+          curr->next = prev;
+          head = curr;
+
+          return head;
+
+
+    }
+    
+    long long generateNum(ListNode*head){
+        ListNode* curr = head;
+        long long length = 1;
+        while(curr->next != NULL){
+                  length++;
+                  curr = curr->next;
+        }
+        
+        curr = head;
+        int n = 1;
+        for(int i = 2; i <= length; i++){
+            n = n*10;
+        }
+    long long num = 0;
+        while(curr != NULL){
+            num = num + n*(curr->val);
+            n = n/10;
+            curr = curr->next;
+        }
+    return num;
+
+    }
+
+
+    void insert(ListNode*& head, int value) {
+    ListNode* newNode = new ListNode(value); // allocate memory
+    if (head == NULL) {
+        head = newNode;
+        return;
+    }
+    ListNode* temp = head;
+    while (temp->next != NULL) {
+        temp = temp->next;
+    }
+    temp->next = newNode;
+}
+
+    int lengthList(ListNode* head){
+        ListNode* curr = head;
+        int length = 1;
+        while(curr->next != NULL){
+                  length++;
+                  curr = curr->next;
+        }
+        return length;
+    }
+
+
+
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+
+        // if(l1->val == 0 && l2->val == 0){
+        //     return l1;
+        // }
+        
+        // l1 = reverse(l1);
+        // l2 = reverse(l2);
+
+        
+        // long long number1 = generateNum(l1);
+        // long long number2 = generateNum(l2);
+
+        ListNode*l3 = NULL;
+
+        // long long number3 = number1 + number2;
+      
+        // while(number3 != 0){
+        //     insertAtEnd(l3,number3%10);
+        //     number3 = number3/10;
+        // }
+           int length1 = lengthList(l1);
+           int length2 = lengthList(l2);
+
+           int minLen = min(length1,length2);
+
+           int carry = 0;
+           int i = 1;
+           ListNode*curr1 = l1;
+           ListNode*curr2 = l2;
+
+           while(i <= minLen){
+            int element1 = curr1->val;
+            int element2 = curr2->val;
+            int element3 = element1 + element2 + carry;
+
+            insert(l3,element3%10);
+            carry = element3/10;
+            curr1 = curr1->next;
+            curr2 = curr2->next;
+            i++;
+           }
+
+           if(curr1 == NULL){
+            while(curr2 != NULL){
+                int element = curr2->val + carry;
+                insert(l3,element%10);
+                carry = element/10;
+                curr2 = curr2->next;
+            }
+           }else if(curr2 == NULL){
+            while(curr1 != NULL){
+                int element = curr1->val + carry;
+                insert(l3,element%10);
+                carry = element/10;
+                curr1 = curr1->next;
+            }
+           }
+
+             if (carry > 0) {
+        insert(l3, carry);
+    }
+
+    
+        return l3;
+    }
+};

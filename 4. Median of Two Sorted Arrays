@@ -1,0 +1,28 @@
+class Solution {
+public:
+    double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
+
+        vector<int>merge;
+        for(int i = 0; i < nums1.size(); i++){
+            merge.push_back(nums1[i]);
+        }
+
+        for(int i = 0; i < nums2.size(); i++){
+            merge.push_back(nums2[i]);
+        }
+
+        sort(merge.begin(),merge.end());
+
+        double median;
+
+        if(merge.size() %2 != 0){
+            median = (1.0)*merge[merge.size()/2];
+        }else{
+            median = (1.0*merge[merge.size()/2] + 1.0*merge[(merge.size()/2) - 1])/2;
+        }
+
+
+        return median;
+        
+    }
+};
